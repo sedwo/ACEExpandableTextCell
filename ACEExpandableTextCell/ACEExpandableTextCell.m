@@ -23,7 +23,8 @@
 
 #import "ACEExpandableTextCell.h"
 
-#define kPadding 5
+#define kVPadding 5.f
+#define kHPadding 7.f
 
 @interface ACEExpandableTextCell ()<UITextViewDelegate>
 @property (nonatomic, strong) SZTextView *textView;
@@ -44,10 +45,13 @@
 
 - (SZTextView *)textView
 {
-    if (_textView == nil) {
+    if (_textView == nil)
+    {
         CGRect cellFrame = self.contentView.bounds;
-        cellFrame.origin.y += kPadding;
-        cellFrame.size.height -= kPadding;
+        cellFrame.origin.y += kVPadding;
+        cellFrame.size.height -= kVPadding;
+        cellFrame.origin.x = kHPadding;
+        cellFrame.size.width -= 2 *kHPadding;
         
         _textView = [[SZTextView alloc] initWithFrame:cellFrame];
         _textView.delegate = self;
@@ -74,7 +78,7 @@
 
 - (CGFloat)cellHeight
 {
-    return [self.textView sizeThatFits:CGSizeMake(self.textView.frame.size.width, FLT_MAX)].height + kPadding * 2;
+    return [self.textView sizeThatFits:CGSizeMake(self.textView.bounds.size.width, FLT_MAX)].height + kVPadding * 2;
 }
 
 
@@ -106,8 +110,12 @@
         
         CGFloat newHeight = [self cellHeight];
         CGFloat oldHeight = [delegate tableView:self.expandableTableView heightForRowAtIndexPath:indexPath];
-        if (fabs(newHeight - oldHeight) > 0.01) {
+        NSLog(@"update:%f, %f", newHeight, oldHeight);
+        
+        if (fabs(newHeight - oldHeight) > 0.01)
+        {
             
+
             // update the height
             if ([delegate respondsToSelector:@selector(tableView:updatedHeight:atIndexPath:)]) {
                 [delegate tableView:self.expandableTableView
