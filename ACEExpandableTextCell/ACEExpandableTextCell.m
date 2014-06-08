@@ -110,12 +110,9 @@
         
         CGFloat newHeight = [self cellHeight];
         CGFloat oldHeight = [delegate tableView:self.expandableTableView heightForRowAtIndexPath:indexPath];
-        NSLog(@"update:%f, %f", newHeight, oldHeight);
         
         if (fabs(newHeight - oldHeight) > 0.01)
         {
-            
-
             // update the height
             if ([delegate respondsToSelector:@selector(tableView:updatedHeight:atIndexPath:)]) {
                 [delegate tableView:self.expandableTableView
