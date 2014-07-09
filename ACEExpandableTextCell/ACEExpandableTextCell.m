@@ -90,6 +90,17 @@
     return YES;
 }
 
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([self.expandableTableView.delegate respondsToSelector:@selector(tableView:textView:shouldChangeTextInRange:replacementText:)]) {
+        id<ACEExpandableTableViewDelegate> delegate = (id<ACEExpandableTableViewDelegate>)self.expandableTableView.delegate;
+        return [delegate tableView:self.expandableTableView
+                          textView:textView
+           shouldChangeTextInRange:range
+                   replacementText:text];
+    }
+    return YES;
+}
+
 - (void)textViewDidChange:(UITextView *)theTextView
 {
     if ([self.expandableTableView.delegate conformsToProtocol:@protocol(ACEExpandableTableViewDelegate)]) {
