@@ -44,6 +44,8 @@
 @property (nonatomic, readonly) CGFloat cellHeight;
 @property (nonatomic, strong) NSString *text;
 
+- (void)updateTextView;
+
 @end
 
 #pragma mark -

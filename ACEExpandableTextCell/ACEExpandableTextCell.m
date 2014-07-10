@@ -101,6 +101,10 @@
     return YES;
 }
 
+- (void)updateTextView {
+    [self textViewDidChange:self.textView];
+}
+
 - (void)textViewDidChange:(UITextView *)theTextView
 {
     if ([self.expandableTableView.delegate conformsToProtocol:@protocol(ACEExpandableTableViewDelegate)]) {
